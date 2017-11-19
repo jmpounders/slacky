@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block body %}
+<form action="{{ url_for('message') }}" method=post>
+    <dl>
+        <dt>Message:
+        <dd><input type="text" name="message"></dd>
+        <dd><input type="submit" value="Post"></dd>
+        <dd><input type="reset" value="Clear"></dd>
+    </dl>
+</form>
+{% endblock %}
