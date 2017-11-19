@@ -1,0 +1,47 @@
+name: slackbot
+channels:
+- defaults
+dependencies:
+- appnope=0.1.0=py36hf537a9a_0
+- ca-certificates=2017.08.26=ha1e5d58_0
+- certifi=2017.7.27.1=py36hd973bb6_0
+- click=6.7=py36hec950be_0
+- decorator=4.1.2=py36h69a1b52_0
+- flask=0.12.2=py36h5658096_0
+- ipython=6.1.0=py36hf612aae_1
+- ipython_genutils=0.2.0=py36h241746c_0
+- itsdangerous=0.24=py36h49fbb8d_1
+- jedi=0.10.2=py36h6325097_0
+- jinja2=2.9.6=py36hde4beb4_1
+- libcxx=4.0.1=h579ed51_0
+- libcxxabi=4.0.1=hebd6815_0
+- libedit=3.1=hb4e282d_0
+- libffi=3.2.1=h475c297_4
+- markupsafe=1.0=py36h3a1e703_1
+- ncurses=6.0=hd04f020_2
+- openssl=1.0.2m=h86d3e6a_1
+- pexpect=4.2.1=py36h3eac828_0
+- pickleshare=0.7.4=py36hf512f8e_0
+- pip=9.0.1=py36h1555ced_4
+- prompt_toolkit=1.0.15=py36haeda067_0
+- ptyprocess=0.5.2=py36he6521c3_0
+- pygments=2.2.0=py36h240cd3f_0
+- pymongo=3.4.0=py36_0
+- python=3.6.3=h5ce8c04_4
+- readline=7.0=hc1231fa_4
+- setuptools=36.5.0=py36h2134326_0
+- simplegeneric=0.8.1=py36he5b5b09_0
+- six=1.11.0=py36h0e22d5e_1
+- sqlite=3.20.1=h7e4c145_2
+- tk=8.6.7=h35a86e2_3
+- traitlets=4.3.2=py36h65bd3ce_0
+- wcwidth=0.1.7=py36h8c6ec74_0
+- werkzeug=0.12.2=py36h168efa1_0
+- wheel=0.29.0=py36h3597b6d_1
+- xz=5.2.3=h0278029_2
+- zlib=1.2.11=hf3cbc9b_2
+- pip:
+  - ipython-genutils==0.2.0
+  - prompt-toolkit==1.0.15
+prefix: /Users/jmpounders/anaconda2/envs/slackbot
+
