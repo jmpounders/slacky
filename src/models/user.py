@@ -1,4 +1,7 @@
 import uuid
+
+from flask import session
+
 from common.database import Database
 
 from flask import session
@@ -30,7 +33,7 @@ class User(object):
         return False
 
     @classmethod
-    def register(self, email, password):
+    def register(cls, email, password):
         user = User.get_by_email(email)
         if user is None:
             # create user
