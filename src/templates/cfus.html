@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>{{ lesson_title }}</h2>
+    <a href="/cfus/new/{{ lesson_id }}"><button class="btn btn-primary">New CFU</button></a>
+    {% if cfus|length > 0 %}
+        {% for cfu in cfus %}
+            <h3>{{ cfu.title }}</h3>
+            <p>{{ cfu.message }}</p>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <h4>There aren't any CFUs yet!</h4>
+    {% endif %}
+</div>
+{% endblock %}

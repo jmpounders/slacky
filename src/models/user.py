@@ -3,8 +3,7 @@ import uuid
 from flask import session
 
 from common.database import Database
-
-from flask import session
+from models.lesson import Lesson
 
 class User(object):
     def __init__(self, email, password, _id=None):
@@ -54,14 +53,13 @@ class User(object):
     def logout():
         session['email'] = None
 
-    def get_cfus(self):
-        return CFUMessage.find_by_user_id(self._id)
+    def get_lessons(self):
+        return Lesson.find_by_user_id(self._id)
 
     @staticmethod
-    def new_cfu(message):
-        # TODO expand to other CFU types
-        cfu = CFUMessage(message, self._id)
-        cfu.save_to_mongo()
+    def new_lesson(title):
+        lesson = Lesson(self.email, title, self._id)
+        lesson.save_to_mongo()
 
     def json(self):
         return {'email': self.email,

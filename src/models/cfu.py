@@ -4,9 +4,11 @@ from random import shuffle
 from common.database import Database
 
 class CFUMessage(object):
-    def __init__(self, message, user_id, _id=None):
+    def __init__(self, title, message, user_id, lesson_id, _id=None):
+        self.title = title
         self.message = message
         self.user_id = user_id
+        self.lesson_id = lesson_id
         self._id = uuid.uuid4().hex if _id is None else _id
 
     def save_to_mongo(self):
@@ -15,6 +17,8 @@ class CFUMessage(object):
     def json(self):
         return {'_id': self._id,
                 'user_id': self.user_id,
+                'lesson_id': self.lesson_id,
+                'title': self.title,
                 'message': self.message}
 
     @classmethod
@@ -25,15 +29,22 @@ class CFUMessage(object):
     @classmethod
     def find_by_user_id(cls, user_id):
         cfus = Database.find(collection='cfus', query={'user_id': user_id})
-        return [cls(**cfu_data) for cfu_data in cfus]
+        cfu_list = [cls(**cfu_data) for cfu_data in cfus]
+        return cfu_list
 
+
+    def find_by_lesson_id(cls, lesson_id):
+        cfus = Database.find(collection='cfus', query={'lesson_id': lesson_id})
+        cfu_list = [cls(**cfu_data) for cfu_data in cfus]
+        return cfu_list
 
 
 class MultipleChoiceCFU(CFUMessage):
-    def __init__(self, question, options, user_id, _id=None):
+    def __init__(self, question, options, user_id, lesson_id, _id=None):
         CFUMessage.__init__(self,
+                            "Multiple Choice",
                             self._make_message(question, options),
-                            user_id, _id)
+                            user_id, lesson_id, _id)
 
     def _make_message(self, question, options, shuffle_opts=False):
         message = question + '\n'
@@ -48,5 +59,6 @@ class MultipleChoiceCFU(CFUMessage):
 
 
 class FreeResponse(CFUMessage):
-    def __init(self, question, user_id, _id=None):
-        CFUMessage.__init__(self, question, user_id, _id)
+    def __init(self, question, user_id, lesson_id, _id=None):
+        CFUMessage.__init__(self, "Free Respone", question,
+                            user_id, lesson_id, _id)

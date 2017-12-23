@@ -18,6 +18,7 @@ class Database():
 
     @staticmethod
     def find(collection, query):
+        print('looking for', query, ' in ', collection)
         return Database.DATABASE[collection].find(query)
 
     @staticmethod
