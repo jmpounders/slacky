@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active">Lessons</li>
+    </ol>
+</nav>
+<div class="container">
+    <h2>{{ username }}'s Lessons</h2>
+    {% for lesson in lessons %}
+    <h3><a href="/cfus/{{ lesson._id }}">{{ lesson.title }}</a></h3>
+    {% endfor %}
+    <a href="/lessons/new">Make a new lesson</a>
+</div>
+
+{% endblock %}

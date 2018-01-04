@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <form id="new-cfu" action="/cfus/new_mc/{{ lesson_id }}" method="post">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" class="form-control" name="title">
+        </div>
+        <div class="form-group">
+            <label for="question">Question</label>
+            <textarea id="question" class="form-control" name="question"></textarea>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">1</span>
+            </div>
+            <input type="text" class="form-control" name="option1">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">2</span>
+            </div>
+            <input type="text" class="form-control" name="option2">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">3</span>
+            </div>
+            <input type="text" class="form-control" name="option3">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">4</span>
+            </div>
+            <input type="text" class="form-control" name="option4">
+        </div>
+        <button type="submit" class="btn btn-primary">Create CFU</button>
+    </form>
+</div>
+{% endblock %}

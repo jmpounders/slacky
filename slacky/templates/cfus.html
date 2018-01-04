@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/lessons">Lessons</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ lesson_title }}</li>
+    </ol>
+</nav>
+<div class="container">
+    <h2>{{ lesson_title }}</h2>
+    <hr>
+    <a href="/cfus/new_fr/{{ lesson_id }}"><button class="btn btn-primary btn-sm">New Free Response CFU</button></a>
+    <a href="/cfus/new_mc/{{ lesson_id }}"><button class="btn btn-primary btn-sm">New Multiple Choice CFU</button></a>
+    <hr>
+    {% if cfus|length > 0 %}
+        {% for cfu in cfus %}
+            <h3>{{ cfu.title }}</h3>
+            <p>{{ cfu.message }}</p>
+            <a href="/cfus/post/{{ cfu._id }}">Post</a> | 
+            <a href="/cfus/delete/{{ cfu._id }}">Delete</a>
+            <hr>
+        {% endfor %}
+    {% else %}
+            <h4>There aren't any CFUs yet!</h4>
+            <hr>
+    {% endif %}
+        <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+            Rename Lesson
+        </button>
+        <a class="btn btn-outline-danger btn-sm" href="/lessons/delete/{{ lesson_id }}" role="button">Delete Lesson</a>
+
+</div>
+
+<!-- Rename Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Rename {{ lesson_title }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/lessons/rename/{{ lesson_id }}" method="post">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">New lesson name:</label>
+                        <input type="text" class="form-control" id="new_name" name="new_name">
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save change</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
