@@ -3,11 +3,16 @@ channels:
 - defaults
 dependencies:
 - appnope=0.1.0=py36hf537a9a_0
+- asn1crypto=0.23.0=py36h782d450_0
 - ca-certificates=2017.08.26=ha1e5d58_0
 - certifi=2017.7.27.1=py36hd973bb6_0
+- cffi=1.11.2=py36hd3e6348_0
+- chardet=3.0.4=py36h96c241c_1
 - click=6.7=py36hec950be_0
+- cryptography=2.1.4=py36h842514c_0
 - decorator=4.1.2=py36h69a1b52_0
 - flask=0.12.2=py36h5658096_0
+- idna=2.6=py36h8628d0a_1
 - ipython=6.1.0=py36hf612aae_1
 - ipython_genutils=0.2.0=py36h241746c_0
 - itsdangerous=0.24=py36h49fbb8d_1
@@ -25,16 +30,21 @@ dependencies:
 - pip=9.0.1=py36h1555ced_4
 - prompt_toolkit=1.0.15=py36haeda067_0
 - ptyprocess=0.5.2=py36he6521c3_0
+- pycparser=2.18=py36h724b2fc_1
 - pygments=2.2.0=py36h240cd3f_0
 - pymongo=3.4.0=py36_0
+- pyopenssl=17.5.0=py36h51e4350_0
+- pysocks=1.6.7=py36hfa33cec_1
 - python=3.6.3=h5ce8c04_4
 - readline=7.0=hc1231fa_4
+- requests=2.18.4=py36h4516966_1
 - setuptools=36.5.0=py36h2134326_0
 - simplegeneric=0.8.1=py36he5b5b09_0
 - six=1.11.0=py36h0e22d5e_1
 - sqlite=3.20.1=h7e4c145_2
 - tk=8.6.7=h35a86e2_3
 - traitlets=4.3.2=py36h65bd3ce_0
+- urllib3=1.22=py36h68b9469_0
 - wcwidth=0.1.7=py36h8c6ec74_0
 - werkzeug=0.12.2=py36h168efa1_0
 - wheel=0.29.0=py36h3597b6d_1
@@ -43,5 +53,7 @@ dependencies:
 - pip:
   - ipython-genutils==0.2.0
   - prompt-toolkit==1.0.15
-prefix: /Users/jmpounders/anaconda2/envs/slackbot
+  - slackclient==1.1.0
+  - websocket-client==0.46.0
+
 
