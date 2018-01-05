@@ -3,6 +3,7 @@ from slackclient import SlackClient
 class Slack():
     token = None
     client = None
+    post_channel = '#dsi-plus2-atl'
 
     @staticmethod
     def initialize(token):
@@ -14,9 +15,9 @@ class Slack():
     def post_message(title, message):
         result = Slack.client.api_call(
             "chat.postMessage",
-            channel="#general",
-            attachments=[{"title": title,
-                         "text": message}]
+            channel = Slack.post_channel,
+            attachments = [{"title": title,
+                            "text": message}]
         )
         return result
 
@@ -24,9 +25,9 @@ class Slack():
     def post_enumerated_response_message(title, message, num_opts):
         result = Slack.client.api_call(
             "chat.postMessage",
-            channel="#general",
-            attachments=[{"title": title,
-                         "text": message}]
+            channel = Slack.post_channel,
+            attachments = [{"title": title,
+                            "text": message}]
         )
 
         msg_ts = result['message']['ts']
