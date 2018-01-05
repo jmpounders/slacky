@@ -8,27 +8,47 @@ from .models.cfu import CFUMessage, FreeResponseCFU, MultipleChoiceCFU
 
 from . import app
 
+# TODO Add oauth for slack (for more than one user)
+#      Store user tokens in mongo
+
+@app.before_first_request
+def initialize_database():
+    """Initialize the database connection and Slack client."""
+    Database.initialize()
+    Slack.initialize(app.config['SLACK_TOKEN'])
+
+@app.route('/install', methods=['GET'])
+def pre_install():
+    client_id = app.config['SLACK_CLIENT_ID']
+    scope = app.config['SLACK_SCOPE']
+    return render_template("install.html", client_id=client_id, scope=scope, username=username)
+
+#@app.route('/post-install', methods=['POST'])
+#def post_install():
+#    code = request.args.get('code')
+#    user.slack_auth(code)
+#    return
 
 @app.route('/')
 def home_template():
+    """Landing page."""
     return render_template('home.html')
 
 @app.route('/login')
 def login_template():
+    """Present the login prompt."""
     return render_template('login.html')
 
 @app.route('/register')
 def register_template():
+    """Present the registration prompt."""
     return render_template('register.html')
 
 
-@app.before_first_request
-def initialize_database():
-    Database.initialize()
-    Slack.initialize(app.config['SLACK_TOKEN'])
-
 @app.route('/auth/login', methods=['POST'])
 def login_user():
+    """Receives login credentials and redirects to the lessons
+    page if successful."""
     username = request.form['username']
     password = request.form['password']
 
@@ -42,6 +62,8 @@ def login_user():
 
 @app.route('/auth/register', methods=['POST'])
 def register_user():
+    """Receives registration request and redirects to the
+    lessons page if successful."""
     username = request.form['username']
     password = request.form['password']
 
@@ -55,7 +77,10 @@ def register_user():
 
 @app.route('/lessons/<string:user_id>')
 @app.route('/lessons')
-def user_lessons(user_id=None):
+def user_lessons(user_id=None, channel=None):
+    """Page showing user's lessons."""
+    session['lesson_id'] = None
+
     if user_id is not None:
         user = User.get_by_id(user_id)
     else:
@@ -64,7 +89,7 @@ def user_lessons(user_id=None):
     lessons = user.get_lessons()
 
     return render_template("user_lessons.html",
-                           lessons=lessons, username=user.username)
+                           lessons=lessons, username=user.username, channel=channel)
 
 @app.route('/lessons/new', methods=['POST', 'GET'])
 def create_new_lesson():

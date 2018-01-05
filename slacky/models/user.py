@@ -3,13 +3,30 @@ import uuid
 from flask import session
 
 from ..common.database import Database
+from ..common.slack import Slack
 from .lesson import Lesson
 
 class User(object):
     def __init__(self, username, password, _id=None):
         self.username = username
         self.password = password
+        #self.sc = None
+        #self.token = None
+        #self.channel = None
         self._id = uuid.uuid4().hex if _id is None else _id
+
+#    def get_slack_token(self):
+#        data = Database.find_one('slack', {'_id': self._id})
+#        if data:
+#            self.token = data['token']
+#            self.channel = data['channel']
+
+#    def add_slack_token(self):
+#        if self.token and self.channel:
+#            Database.insert('slack',
+#                            {'_id': self._id,
+#                             'token': self.token,
+#                             'channel': self.channel})
 
     @classmethod
     def get_by_username(cls, username):
@@ -44,10 +61,13 @@ class User(object):
 
 
     @staticmethod
-    def login(user_username):
+    def login(username):
         # Login_valid has already been called
-        session['username'] = user_username
-        return User.get_by_username(user_username)
+        user = User.get_by_username(username)
+        session['username'] = username
+        #print(user.get_slack_token())
+
+        return user
 
     @staticmethod
     def logout():
