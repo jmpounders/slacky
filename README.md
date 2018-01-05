@@ -22,10 +22,12 @@ that can be posted to Slack with a single click...
 
 To create a `conda` enviroment preconfigured for Slacky enter
 
+```
+conda env create -f conda_env.yml
+```
+
 ## Slack Authentication
 
 Slacky is not currently configured for general Slack OAuth.  It is only available in my workspace.
 
-```
-conda env create -f conda_env.yml
-```
+
