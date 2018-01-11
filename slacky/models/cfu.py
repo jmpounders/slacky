@@ -55,9 +55,9 @@ class CFUMessage(object):
 
 
 class MultipleChoiceCFU(CFUMessage):
-    def __init__(self, question, options, user_id, lesson_id, _id=None):
+    def __init__(self, title, question, options, user_id, lesson_id, _id=None):
         CFUMessage.__init__(self,
-                            "Multiple Choice",
+                            title+" (multiple choice)",
                             self._make_message(question, options),
                             user_id, lesson_id, len(options), _id)
 
@@ -74,7 +74,9 @@ class MultipleChoiceCFU(CFUMessage):
 
 
 class FreeResponseCFU(CFUMessage):
-    def __init__(self, question, user_id, lesson_id, _id=None):
-        CFUMessage.__init__(self, "Free Respone", question,
+    def __init__(self, title, question, user_id, lesson_id, _id=None):
+        CFUMessage.__init__(self,
+                            title+" (free response)",
+                            question,
                             user_id, lesson_id, _id=_id)
 

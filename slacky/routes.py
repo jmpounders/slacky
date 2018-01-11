@@ -139,7 +139,7 @@ def creat_new_cfu(lesson_id):
         message = request.form['message']
         user = User.get_by_username(session['username'])
 
-        new_cfu = FreeResponseCFU(message, user._id, lesson_id)
+        new_cfu = FreeResponseCFU(title, message, user._id, lesson_id)
         new_cfu.save_to_mongo()
 
         return make_response(lesson_cfus(lesson_id))
@@ -157,7 +157,7 @@ def creat_new_cfu_mc(lesson_id):
 
         user = User.get_by_username(session['username'])
 
-        new_cfu = MultipleChoiceCFU(question, options, user._id, lesson_id)
+        new_cfu = MultipleChoiceCFU(title, question, options, user._id, lesson_id)
         new_cfu.save_to_mongo()
 
         return make_response(lesson_cfus(lesson_id))
