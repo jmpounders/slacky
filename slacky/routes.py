@@ -1,4 +1,4 @@
-from flask import request, render_template, make_response, session, flash
+from flask import request, render_template, redirect, url_for, make_response, session, flash
 
 from .common.database import Database
 from .common.slack import Slack
@@ -58,7 +58,7 @@ def login_user():
         session['username'] = None
         return render_template('home.html')
 
-    return make_response(user_lessons(user._id))
+    return redirect(url_for('user_lessons'))
 
 @app.route('/auth/register', methods=['POST'])
 def register_user():
@@ -73,7 +73,7 @@ def register_user():
         session['username'] = None
         return render_template('home.html')
 
-    return make_response(user_lessons(user._id))
+    return redirect(url_for('user_lessons'))
 
 @app.route('/lessons/<string:user_id>')
 @app.route('/lessons')
@@ -102,12 +102,12 @@ def create_new_lesson():
         new_lesson = Lesson(user.username, title, user._id)
         new_lesson.save_to_mongo()
 
-        return make_response(user_lessons(user._id))
+        return redirect(url_for('user_lessons'))
 
 @app.route('/lessons/delete/<string:lesson_id>')
 def delete_lesson(lesson_id):
     Lesson.delete_from_mongo(lesson_id)
-    return make_response(user_lessons())
+    return redirect(url_for('user_lessons'))
 
 @app.route('/lessons/rename/<string:lesson_id>', methods=['POST'])
 def rename_lesson(lesson_id):
@@ -115,7 +115,7 @@ def rename_lesson(lesson_id):
     lesson = Lesson.from_mongo(lesson_id)
     lesson.update({'title': new_name})
 
-    return make_response(lesson_cfus(lesson_id))
+    return redirect(url_for('lesson_cfus'))
 
 
 @app.route('/cfus/<string:lesson_id>')
@@ -142,7 +142,7 @@ def creat_new_cfu(lesson_id):
         new_cfu = FreeResponseCFU(title, message, user._id, lesson_id)
         new_cfu.save_to_mongo()
 
-        return make_response(lesson_cfus(lesson_id))
+        return redirect(url_for('lesson_cfus', lesson_id=session['lesson_id']))
 
 @app.route('/cfus/new_mc/<string:lesson_id>', methods=['POST', 'GET'])
 def creat_new_cfu_mc(lesson_id):
@@ -160,18 +160,18 @@ def creat_new_cfu_mc(lesson_id):
         new_cfu = MultipleChoiceCFU(title, question, options, user._id, lesson_id)
         new_cfu.save_to_mongo()
 
-        return make_response(lesson_cfus(lesson_id))
+        return redirect(url_for('lesson_cfus', lesson_id=session['lesson_id']))
 
 @app.route('/cfus/delete/<string:cfu_id>')
 def delete_cfu(cfu_id):
     CFUMessage.delete_from_mongo(cfu_id)
-    return make_response(lesson_cfus(session['lesson_id']))
+    return redirect(url_for('lesson_cfus', lesson_id=session['lesson_id']))
 
 @app.route('/cfus/post/<string:cfu_id>')
 def post_cfu(cfu_id):
     cfu = CFUMessage.get_from_mongo(cfu_id)
     cfu.post()
-    return make_response(lesson_cfus(session['lesson_id']))
+    return redirect(url_for('lesson_cfus', lesson_id=session['lesson_id']))
 
 
 # ===== DEPRECATED ======
