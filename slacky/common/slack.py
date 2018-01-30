@@ -3,7 +3,7 @@ from slackclient import SlackClient
 class Slack():
     token = None
     client = None
-    post_channel = '#dsi-ec-instructors'
+    post_channel = '#dsi-plus3-ec'
 
     @staticmethod
     def initialize(token):
